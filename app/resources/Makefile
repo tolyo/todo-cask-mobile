@@ -9,7 +9,7 @@ clean:
 		rm -r "package-lock.json"; \
 	fi
 
-# Setup 
+# Setup
 setup: clean
 	@npm i web
 
@@ -24,6 +24,9 @@ pretty:
 # Build for production
 build: clean_build
 	@npm run build
+
+proxy:
+	@npx local-ssl-proxy --source 8443 --target 8080
 
 # Clean build directory if it exists
 clean_build:
