@@ -1,39 +1,38 @@
 <!doctype html>
 <html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8" />
-  <title>Awesome Capacitor App</title>
-  <meta
-    name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
-  <meta name="referrer" content="no-referrer">
-  <script
-    type="module"
-    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
-  ></script>
-  <script
-    nomodule
-    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
-  ></script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Awesome Capacitor App</title>
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <meta name="theme-color" content="#31d53d" />
-</head>
-<body>
-  <body ng-app="router" ng-cloak>
-    View
-    {{ 2 + 2 }}
-    <ng-view></ng-view>
-    <script type="module" src="http://10.0.2.2:8443/static/router/router.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-ui-router@1.0.30/release/angular-ui-router.min.js"></script>
+ 
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="theme-color" content="#31d53d" />
+  </head>
+  <body ng-app="todo">
+    View    {{ 2 + 2 }}
+    <ui-view></ui-view>
+    <script
+      src="http://10.0.2.2:8080/static/router/router.js"
+      type="module"
+    ></script>
   </body>
-<!--  <script-->
-<!--    async="true"-->
-<!--    src="http://10.0.2.2:3000/browser-sync/browser-sync-client.js?v=2.27.10"-->
-<!--  ></script>-->
-</body>
 </html>

@@ -14,19 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/Angular-Wave/angular-seed.git"
   },
-  "keywords": [
-    "AngularJS",
-    "AngularTS",
-    "Angular seed"
-  ],
-  "author": "Anatoly Ostrovsky",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Angular-Wave/angular-seed/issues"
   },
   "homepage": "https://github.com/Angular-Wave/angular-seed#readme",
   "dependencies": {
-    "@angular-wave/angular.ts": "0.5.0",
     "modern-normalize": "latest",
     "web": "^0.0.2"
   },

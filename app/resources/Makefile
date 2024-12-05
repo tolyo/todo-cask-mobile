@@ -13,6 +13,9 @@ clean:
 setup: clean
 	@npm i web
 
+sync:
+	npx cap sync
+
 # Run server in dev mode
 serve:
 	@npm run serve

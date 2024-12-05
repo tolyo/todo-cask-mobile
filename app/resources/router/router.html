@@ -27,12 +27,14 @@
 
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#fafafa" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-ui-router@1.0.30/release/angular-ui-router.min.js"></script>
   </head>
 
-  <body ng-app="router" ng-cloak>
+  <body ng-app="todo" ng-cloak>
     View
     {{ 2 + 2 }}
-    <ng-view></ng-view>
+    <ui-view></ui-view>
     <script type="module" src="./router.js"></script>
   </body>
 </html>
