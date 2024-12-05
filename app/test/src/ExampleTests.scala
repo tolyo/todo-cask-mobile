@@ -1,11 +1,8 @@
 package app
-import io.undertow.Undertow
-
 import utest._
-
 object ExampleTests extends TestSuite{
   def withServer[T](example: cask.main.Main)(f: String => T): T = {
-    val server = Undertow.builder
+    val server = io.undertow.Undertow.builder
       .addHttpListener(8081, "localhost")
       .setHandler(example.defaultHandler)
       .build
@@ -15,19 +12,19 @@ object ExampleTests extends TestSuite{
       finally server.stop()
     res
   }
+  val tests = Tests{
+    test("TodoServer") - withServer(TodoServer){ host =>
+      val page = requests.get(host).text()
+      assert(page.contains("What needs to be done?"))
 
-  val tests = Tests {
-    test("MinimalApplication") - withServer(MinimalApplication) { host =>
-      val success = requests.get(host)
+      val cssResponse = requests.get(host + "/static/index.css")
+      assert(cssResponse.text().contains("font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;"))
+      assert(cssResponse.headers("content-type") == List("text/css"))
 
-      success.text() ==> "Hello World!"
-      success.statusCode ==> 200
-
-      requests.get(s"$host/doesnt-exist", check = false).statusCode ==> 404
-
-      requests.post(s"$host/do-thing", data = "hello").text() ==> "olleh"
-
-      requests.delete(s"$host/do-thing", check = false).statusCode ==> 405
+      val jsResponse = requests.get(host + "/static/app.js")
+      assert(jsResponse.text().contains("initListeners()"))
+      assert(jsResponse.headers("content-type") == List("text/javascript"))
     }
   }
+
 }
