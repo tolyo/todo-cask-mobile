@@ -1,5 +1,9 @@
 {
   "appId": "com.todo",
   "appName": "todo",
-  "webDir": "www"
+  "webDir": "www","server": {
+    "hostname": "localhost",
+    "androidScheme": "http",
+    "cleartext": true
+  }
 }

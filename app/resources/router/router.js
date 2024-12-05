@@ -1,9 +1,9 @@
 window.angular.module("todo", ['ui.router'])
     .config([
-        "$stateProvider", 
+        "$stateProvider",
         "$locationProvider",
         "$sceDelegateProvider",
-        ($stateProvider, $locationProvider, $sceDelegateProvider) => {            
+        ($stateProvider, $locationProvider, $sceDelegateProvider) => {
             $locationProvider.hashPrefixValue = "";
             $locationProvider.html5Mode({
                 enabled: true,
@@ -14,11 +14,11 @@ window.angular.module("todo", ['ui.router'])
             .state({
                 name: "home",
                 url: "/",
-                templateUrl: "http://10.0.2.2:8080/mobile/_home"
+                templateUrl: "http://10.0.2.2:8080/hello"
             });
             $sceDelegateProvider.resourceUrlWhitelist([
-              'self', 
-              'http://10.0.2.2:8080/**' 
+              'self',
+              'http://10.0.2.2:8080/**'
             ]);
         }
     ]);

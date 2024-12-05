@@ -172,7 +172,14 @@ object TodoServer extends MainRoutes {
 
   @cask.get("/hello")
   def hello() = {
-    "Hello"
+    Response(
+      data = "Hello",
+      headers = Seq(
+        "Access-Control-Allow-Origin" -> "*",
+        "Access-Control-Allow-Methods" -> "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept"
+      )
+    )
   }
 
   @cask.get("/todo/checked")
