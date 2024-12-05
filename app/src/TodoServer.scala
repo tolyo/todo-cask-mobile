@@ -169,8 +169,13 @@ object TodoServer extends cask.MainRoutes {
     )
   }
 
+  @cask.get("/hello")
+  def hello() = {
+    "Hello"
+  }
+
   @cask.staticResources("/static")
-  def static() = "todo"
+  def static() = "."
 
   initialize()
 }
