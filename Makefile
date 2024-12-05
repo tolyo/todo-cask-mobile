@@ -1,0 +1,2 @@
+build:
+	./mill __.compile
