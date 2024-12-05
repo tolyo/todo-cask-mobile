@@ -31,6 +31,9 @@
     "web": "^0.0.2"
   },
   "devDependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
     "@rollup/plugin-commonjs": "latest",
     "@rollup/plugin-terser": "latest",
     "@web/dev-server": "latest",
