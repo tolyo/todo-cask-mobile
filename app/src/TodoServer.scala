@@ -1,12 +1,13 @@
 package app
 
+import cask.endpoints.staticResources
 import scalasql.DbApi.Txn
-import scalasql.Sc
 import scalasql.SqliteDialect._
 import scalatags.Text.all._
 import scalatags.Text.tags2
+import cask._
 
-object TodoServer extends cask.MainRoutes {
+object TodoServer extends MainRoutes {
   val tmpDb = java.nio.file.Files.createTempDirectory("todo-cask-sqlite")
 
   val sqliteDataSource = new org.sqlite.SQLiteDataSource()
@@ -172,6 +173,25 @@ object TodoServer extends cask.MainRoutes {
   @cask.get("/hello")
   def hello() = {
     "Hello"
+  }
+
+  @cask.get("/todo/checked")
+  def todoList() = {
+    val checked = true
+    doctype("html")(
+      div(attr("ng-controller") := "TodoController as $ctrl")(
+        div(
+          attr("ng-query") := sqliteClient.renderSql(Todo.select.filter(_.checked === checked)),
+          attr("ng-params") := s"[$checked]",
+          attr("data-bind") := "$ctrl.todos")(
+          ul(
+            li(attr("ng-repeat") := "i in $ctrl.todos")(
+              "{{ i.done }} {{ i.task }}"
+            )
+          )
+        )
+      )
+    )
   }
 
   @cask.staticResources("/static")
