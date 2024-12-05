@@ -1,5 +1,5 @@
 build:
 	./mill __.compile
 
-run:
-    ./mill -w app.runBackground
+dev:
+	./mill -w app.runBackground
