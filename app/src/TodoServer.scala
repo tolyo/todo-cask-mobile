@@ -26,21 +26,20 @@ object TodoServer extends MainRoutes {
   @cask.get("/list")
   def list() =
      section(
+      id := "todo",
       attr("ng-controller") := "TodoCtrl as $ctrl",
 
       tag("ion-button")(attr("expand") := "block", attr("ng-click") := "$ctrl.archive()")("Archive"),
-      ul(
+      div(
         attr("ng-repeat") := "todo in $ctrl.tasks",
         tag("ion-item")(
-          cls := "done-{{todo.done}}",
-          tag("ion-label")("{{ todo.task }} "),
-          tag("ion-toggle")(attr("type") := "checkbox", attr("ng-click") := "todo.done = !todo.done"),
+          tag("ion-toggle")(attr("type") := "checkbox", attr("ng-click") := "todo.done = !todo.done")("{{ todo.task }} "),
         )
       ),
       form(attr("ng-submit") := "$ctrl.add(newTodo)")(
         input(attr("type") := "text", attr("ng-model") := "newTodo"),
         tag("ion-button")(attr("expand") := "block", attr("ng-click") := "$ctrl.add(newTodo)")("Add new todo")
-      )
+      ),
     )
 
   @cask.staticResources("/static")
