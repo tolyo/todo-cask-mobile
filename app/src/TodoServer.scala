@@ -1,11 +1,11 @@
 package app
 
-import cask.endpoints.staticResources
+import cask._
+import cask.router.Decorator
 import scalasql.DbApi.Txn
 import scalasql.SqliteDialect._
-import scalatags.Text.tags2
-import cask._
 import scalatags.Text.all.{input, _}
+import scalatags.Text.tags2
 import scalatags.Text.tags2.section
 
 object TodoServer extends MainRoutes {
@@ -27,6 +27,20 @@ object TodoServer extends MainRoutes {
       }
     }
   }
+
+  class cors extends cask.RawDecorator {
+    def wrapFunction(pctx: cask.Request, delegate: Delegate) = {
+      val response = delegate(pctx, Map.empty)
+      response.map(r => r.copy(headers = r.headers ++ Seq(
+        "Access-Control-Allow-Origin" -> "*",
+        "Access-Control-Allow-Methods" -> "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept"
+      )))
+
+    }
+  }
+
+  override def decorators: Seq[Decorator[_, _, _, _]] = Seq(new cors)
 
   case class Todo[T[_]](id: T[Int], checked: T[Boolean], text: T[String])
 
@@ -165,15 +179,15 @@ object TodoServer extends MainRoutes {
               a(href := "http://todomvc.com", "TodoMVC")
             )
           ),
-          script(src := "/static/router/routes.js")
+          script(src := "/static/router/router.js")
         )
       )
     )
   }
 
   @cask.get("/list")
-  def hello() = {
-    val res = section(
+  def hello() =
+     section(
       attr("ng-controller") := "TodoCtrl as $ctrl",
 
       tag("ion-button")(attr("size") := "small", attr("ng-click") := "$ctrl.archive()")("Archive"),
@@ -190,9 +204,6 @@ object TodoServer extends MainRoutes {
         tag("ion-button")(attr("size") := "small", attr("ng-click") := "$ctrl.add(newTodo)")("Add new todo")
       )
     )
-
-    withCorsHeaders(Response(res))
-  }
 
   @cask.get("/todo/checked")
   def todoList() = {
@@ -217,14 +228,4 @@ object TodoServer extends MainRoutes {
   def static() = "."
 
   initialize()
-
-  def withCorsHeaders[T](response: Response[T]): Response[T] = {
-    response.copy(
-      headers = response.headers ++ Seq(
-        "Access-Control-Allow-Origin" -> "*",
-        "Access-Control-Allow-Methods" -> "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept"
-      )
-    )
-  }
 }
