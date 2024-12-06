@@ -1,47 +1,34 @@
 <!doctype html>
-<html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,300;0,400;0,500;0,600;1,100&display=swap"
-      rel="stylesheet"
-    />
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Awesome Capacitor App</title>
+  <meta
+    name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
 
-    <title>AngularTS Seed</title>
-    <link rel="stylesheet" href="/static/index.css" />
-    <meta name="description" content="" />
+  <script src="http://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="http://cdn.jsdelivr.net/npm/angular-ui-router@1.0.30/release/angular-ui-router.min.js"></script>
 
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:image:alt" content="" />
-
-    <link rel="icon" href="/static/assets/favicon.ico" sizes="any" />
-    <link rel="icon" href="/static/assets/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/static/assets/icon.png" />
-
-    <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#fafafa" />
-  </head>
-
-  <body ng-app="version" ng-cloak>
-    <div id="app" ng-init="x='AngularTS'">
-      <h1>{{ x }} Seed</h1>
-      A friendly starter template to set you up for success
-
-      <section>
-        <a href="/static/router/router.html">Router App</a>
-      </section>
-    </div>
-
-    <small id="footer" ng-controller="VersionController as $ctrl">
-      version: {{ $ctrl.version }}
-    </small>
-
-    <script type="module" src="/static/index.js"></script>
-  </body>
+  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./index.css" />
+  <meta name="theme-color" content="#31d53d" />
+</head>
+<body ng-app="todo">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Your todo app</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ui-view></ui-view>
+  </ion-content>
+  <script src="/static/router/router.js"></script>
+</body>
 </html>

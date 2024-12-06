@@ -3,9 +3,10 @@ package app
 import cask.endpoints.staticResources
 import scalasql.DbApi.Txn
 import scalasql.SqliteDialect._
-import scalatags.Text.all._
 import scalatags.Text.tags2
 import cask._
+import scalatags.Text.all.{input, _}
+import scalatags.Text.tags2.section
 
 object TodoServer extends MainRoutes {
   val tmpDb = java.nio.file.Files.createTempDirectory("todo-cask-sqlite")
@@ -164,22 +165,33 @@ object TodoServer extends MainRoutes {
               a(href := "http://todomvc.com", "TodoMVC")
             )
           ),
-          script(src := "/static/app.js")
+          script(src := "/static/router/routes.js")
         )
       )
     )
   }
 
-  @cask.get("/hello")
+  @cask.get("/list")
   def hello() = {
-    Response(
-      data = "Hello",
-      headers = Seq(
-        "Access-Control-Allow-Origin" -> "*",
-        "Access-Control-Allow-Methods" -> "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept"
+    val res = section(
+      attr("ng-controller") := "TodoCtrl as $ctrl",
+
+      tag("ion-button")(attr("size") := "small", attr("ng-click") := "$ctrl.archive()")("Archive"),
+      ul(
+        attr("ng-repeat") := "todo in $ctrl.tasks",
+        li(
+          cls := "done-{{todo.done}}",
+          "{{ todo.task }} ",
+          tag("ion-input")(attr("type") := "checkbox", attr("ng-click") := "todo.done = !todo.done")
+        )
+      ),
+      form(attr("ng-submit") := "$ctrl.add(newTodo)")(
+        input(attr("type") := "text", attr("ng-model") := "newTodo"),
+        tag("ion-button")(attr("size") := "small", attr("ng-click") := "$ctrl.add(newTodo)")("Add new todo")
       )
     )
+
+    withCorsHeaders(Response(res))
   }
 
   @cask.get("/todo/checked")
@@ -205,4 +217,14 @@ object TodoServer extends MainRoutes {
   def static() = "."
 
   initialize()
+
+  def withCorsHeaders[T](response: Response[T]): Response[T] = {
+    response.copy(
+      headers = response.headers ++ Seq(
+        "Access-Control-Allow-Origin" -> "*",
+        "Access-Control-Allow-Methods" -> "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept"
+      )
+    )
+  }
 }
